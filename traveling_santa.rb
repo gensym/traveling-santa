@@ -76,10 +76,10 @@ def print_route(route)
   route.inject(nil) do |m, v|
 
     dist = if m
-             miles_between(m, v)
-           else
-             0
-           end
+      miles_between(m, v)
+    else
+      0
+    end
     puts "#{v[:city]}, #{v[:state]} - #{dist}"
     v
   end
