@@ -1,6 +1,5 @@
 require 'csv'
 require 'haversine'
-require 'byebug'
 
 
 def destinations
@@ -90,7 +89,7 @@ route = build_optimal_route(destinations.slice(0, 4))
 
 print_route(route)
 puts "-----"
-puts "\n\n#{evaluate_route(route, true).round(2)} miles"
+puts "\n\n#{evaluate_route(route).round(2)} miles"
 
 
 
