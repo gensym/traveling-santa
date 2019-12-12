@@ -47,7 +47,7 @@ def evaluate_route(locations)
 
   result = locations.inject(start_point) do |m, v|
     {
-      distance: miles_between(m[:location], v),
+      distance: m[:distance] + miles_between(m[:location], v),
       location: v
     }
   end
@@ -56,8 +56,15 @@ def evaluate_route(locations)
 end
 
 def print_route(route)
-  route.each do |l|
-    puts "#{l[:city]}, #{l[:state]}"
+  route.inject(nil) do |m, v|
+
+    dist = if m
+      miles_between(m, v)
+    else
+      0
+    end
+    puts "#{v[:city]}, #{v[:state]} - #{dist}"
+    v
   end
 end
 
