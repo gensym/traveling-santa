@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    byebug (10.0.2)
+    haversine (0.3.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  byebug
+  haversine
+
+BUNDLED WITH
+   1.17.1
