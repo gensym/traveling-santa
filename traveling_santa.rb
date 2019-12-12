@@ -20,6 +20,7 @@ end
 
 @north_pole = { city: "North Pole", state: "Earth", lat: 90, lon: 135 }
 
+
 def build_route(destinations)
   todo = Set.new(destinations)
   route = [@north_pole]
@@ -47,7 +48,7 @@ def evaluate_route(locations)
 
   result = locations.inject(start_point) do |m, v|
     {
-      distance: miles_between(m[:location], v),
+      distance: m[:distance] + miles_between(m[:location], v),
       location: v
     }
   end
@@ -55,14 +56,70 @@ def evaluate_route(locations)
   result[:distance]
 end
 
+def build_optimal_route(destinations)
+  res = destinations.permutation.inject(nil) do |m, v|
+
+    route = [@north_pole] + v + [@north_pole]
+    dist = evaluate_route(route)
+
+    if m.nil? || dist < m[:distance]
+      {route: route, distance: dist}
+    else
+      m
+    end
+  end
+
+  res[:route]
+end
+
 def print_route(route)
-  route.each do |l|
-    puts "#{l[:city]}, #{l[:state]}"
+  route.inject(nil) do |m, v|
+
+    dist = if m
+             miles_between(m, v)
+           else
+             0
+           end
+    puts "#{v[:city]}, #{v[:state]} - #{dist}"
+    v
   end
 end
 
-route = build_route(destinations)
+
+route = build_optimal_route(destinations.slice(0, 4))
 
 print_route(route)
+puts "-----"
+puts "\n\n#{evaluate_route(route, true).round(2)} miles"
 
-puts "\n\n#{evaluate_route(route).round(2)} miles"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
